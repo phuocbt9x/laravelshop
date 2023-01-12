@@ -22,3 +22,7 @@ Route::get('/create' , function(){
 Route::get('/index' , function(){
     return view('admin.category.index');
 })->name('category.index');
+
+Route::prefix('admin')->group(function(){
+    
+});
