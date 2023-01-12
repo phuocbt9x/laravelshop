@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/' , function(){
+Route::get('/', function () {
     return view('admin.dashboard');
 })->name('hompage');
-Route::get('/create' , function(){
-    return view('admin.category.create');
-})->name('category.index');
-Route::get('/index' , function(){
-    return view('admin.category.index');
-})->name('category.index');
 
-Route::prefix('admin')->group(function(){
-    
+Route::prefix('admin')->group(function () {
+    //Category
+    Route::group(['controller' => CategoryController::class, 'prefix' => 'category', 'as' => 'category.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{categoryModel}', 'edit')->name('edit');
+        Route::patch('update/{categoryModel}', 'update')->name('update');
+        Route::delete('destroy/{categoryModel}', 'destroy')->name('destroy');
+    });
 });

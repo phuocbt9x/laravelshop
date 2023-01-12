@@ -17,8 +17,12 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('slug');
+            $table->unsignedInteger('parent_id')->nullable();
             $table->boolean('activated')->default(0);
             $table->timestamps();
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('categories');
         });
     }
 

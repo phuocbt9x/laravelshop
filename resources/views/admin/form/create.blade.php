@@ -69,7 +69,7 @@
                                             <option>Washington</option>
                                         </select>
                                     </div>
-
+                                    
                                     <div class="form-group">
                                         <label>Date masks:</label>
 
@@ -84,27 +84,25 @@
                                     </div>
                                     <div class="form-group">
                                         <label>US phone mask:</label>
-
+                      
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control"
-                                                data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask=""
-                                                inputmode="text">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                          </div>
+                                          <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" inputmode="text">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
                                     <div class="form-group">
                                         <label>Date range:</label>
-
+                      
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="far fa-calendar-alt"></i>
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control float-right" id="reservation">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="far fa-calendar-alt"></i>
+                                            </span>
+                                          </div>
+                                          <input type="text" class="form-control float-right" id="reservation">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
