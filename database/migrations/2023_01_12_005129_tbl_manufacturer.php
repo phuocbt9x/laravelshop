@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('manufactureres', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('slug');
+            $table->string('logo');
+            $table->string('website')->unique();
+            $table->string('phone')->unique();
             $table->boolean('activated')->default(0);
             $table->timestamps();
         });

@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_comment');
-            $table->unsignedInteger('id_product');
+            $table->unsignedInteger('comment_id');
+            $table->unsignedInteger('product_id');
             $table->integer('start');
             $table->boolean('activated')->default(1);
             $table->timestamps();
-            $table->foreign('id_comment')->references('id')->on('comments');
-            $table->foreign('id_product')->references('id')->on('products');
+            $table->foreign('comment_id')->references('id')->on('comments');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

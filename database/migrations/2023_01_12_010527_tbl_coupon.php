@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->boolean('type')->default(0);
-            $table->boolean('stock')->default(0);
+            $table->unsignedInteger('stock')->nullable();
             $table->dateTime('time_start')->nullable();
             $table->dateTime('time_end')->nullable();
-            $table->integer('value');
+            $table->unsignedInteger('value');
             $table->boolean('activated')->default(0);
             $table->timestamps();
         });

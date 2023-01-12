@@ -16,16 +16,17 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->double('price');
+            $table->string('slug');
+            $table->unsignedDouble('price');
             $table->string('thumbnail');
             $table->integer('quantity')->nullable();
-            $table->string('decrisption');
-            $table->unsignedInteger('id_manufacturer');
-            $table->unsignedInteger('id_category');
+            $table->longText('decrisption');
+            $table->unsignedInteger('manufacturer_id');
+            $table->unsignedInteger('category_id');
             $table->boolean('activated')->default(0);
             $table->timestamps();
-            $table->foreign('id_manufacturer')->references('id')->on('manufactureres');
-            $table->foreign('id_category')->references('id')->on('categories');
+            $table->foreign('manufacturer_id')->references('id')->on('manufactureres');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

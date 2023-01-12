@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_user');
+            $table->uuid('user_uuid')->nullable(false);
             $table->string('address');
             $table->unsignedInteger('city');
             $table->unsignedInteger('district');
             $table->unsignedInteger('ward');
             $table->boolean('activated')->default(0);
             $table->timestamps();
-            $table->foreign('id_user')
+            $table->foreign('user_uuid')
             ->references('uuid')
             ->on('users');
         });

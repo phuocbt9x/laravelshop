@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_address');
             $table->string('name');
             $table->string('email');
             $table->string('address');
@@ -24,13 +23,12 @@ return new class extends Migration
             $table->string('ward');
             $table->string('note');
             $table->integer('total_item');
-            $table->double('total_price');
-            $table->unsignedInteger('id_coupon')->nullable();
-            $table->double('final_price');
-            $table->boolean('activated')->default(0);
+            $table->unsignedDouble('total_price');
+            $table->unsignedInteger('coupon_id')->nullable();
+            $table->unsignedDouble('final_price');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
-            $table->foreign('id_address')->references('id')->on('addresses');
-            $table->foreign('id_coupon')->references('id')->on('coupons');
+            $table->foreign('coupon_id')->references('id')->on('coupons');
         });
     }
 

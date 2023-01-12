@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug');
             $table->boolean('type')->default(0);
             $table->integer('value');
             $table->boolean('activated')->default(0);

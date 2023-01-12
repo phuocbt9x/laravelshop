@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('report_comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_comment');
+            $table->unsignedInteger('comment_id');
             $table->string('comment');
             $table->boolean('activated')->default(1);
             $table->timestamps();
-            $table->foreign('id_comment')->references('id')->on('comments');
+            $table->foreign('comment_id')->references('id')->on('comments');
         });
     }
 

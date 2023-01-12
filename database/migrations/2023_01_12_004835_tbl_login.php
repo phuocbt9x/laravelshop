@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('logins', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('password');
-            $table->string('phone')->unique()->nullable();
+            $table->string('phone')->nullable();
             $table->boolean('activated')->default(0);
             $table->timestamps();
         });

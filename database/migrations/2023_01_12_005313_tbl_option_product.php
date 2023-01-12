@@ -15,14 +15,13 @@ return new class extends Migration
     {
         Schema::create('option_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_product');
-            $table->unsignedInteger('id_option');
-            $table->unsignedInteger('id_option_value');
-            $table->boolean('activated')->default(0);
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('option_id');
+            $table->unsignedInteger('option_value_id');
             $table->timestamps();
-            $table->foreign('id_product')->references('id')->on('products');
-            $table->foreign('id_option')->references('id')->on('options');
-            $table->foreign('id_option_value')->references('id')->on('option_values');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('option_id')->references('id')->on('options');
+            $table->foreign('option_value_id')->references('id')->on('option_values');
         });
     }
 

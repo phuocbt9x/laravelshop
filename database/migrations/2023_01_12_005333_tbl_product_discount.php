@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('product_discounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_product');
-            $table->unsignedInteger('id_discount');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('discount_id');
             $table->dateTime('time_start')->nullable();
             $table->dateTime('time_end')->nullable();
             $table->boolean('activated')->default(0);
             $table->timestamps();
-            $table->foreign('id_product')->references('id')->on('products');
-            $table->foreign('id_discount')->references('id')->on('discounts');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('discount_id')->references('id')->on('discounts');
         });
     }
 

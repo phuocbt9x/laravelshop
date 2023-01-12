@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('option_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('value');
-            $table->unsignedInteger('id_option');
+            $table->string('value');
+            $table->string('slug');
+            $table->unsignedInteger('option_id');
             $table->boolean('activated')->default(0);
             $table->timestamps();
-            $table->foreign('id_option')->references('id')->on('options');
+            $table->foreign('option_id')->references('id')->on('options');
         });
     }
 

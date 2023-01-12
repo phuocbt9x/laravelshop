@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('rules', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_group');
-            $table->unsignedInteger('id_permission');
-            $table->boolean('activated')->default(0);
+            $table->unsignedInteger('group_id');
+            $table->unsignedInteger('permission_id');
             $table->timestamps();
-            $table->foreign('id_group')->references('id')->on('groups');
-            $table->foreign('id_permission')->references('id')->on('permissions');
+            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('permission_id')->references('id')->on('permissions');
         });
     }
 

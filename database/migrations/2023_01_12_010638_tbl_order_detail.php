@@ -15,17 +15,16 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_order');
-            $table->unsignedInteger('id_product');
-            $table->unsignedInteger('id_product_sku')->nullable();
-            $table->double('price');
-            $table->integer('quantity');
-            $table->double('total_price');
-            $table->boolean('activated')->default(0);
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('product_sku_id')->nullable();
+            $table->unsignedDouble('price');
+            $table->unsignedInteger('quantity');
+            $table->unsignedDouble('total_price');
             $table->timestamps();
-            $table->foreign('id_order')->references('id')->on('orders');
-            $table->foreign('id_product')->references('id')->on('products');
-            $table->foreign('id_product_sku')->references('id')->on('product_skus');
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_sku_id')->references('id')->on('product_skus');
         });
     }
 

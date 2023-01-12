@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('parent_category');
-            $table->unsignedInteger('child_category');
-            $table->boolean('activated')->default(0);
+            $table->unsignedInteger('category_parent');
+            $table->unsignedInteger('category_child');
             $table->timestamps();
-            $table->foreign('parent_category')->references('id')->on('categories');
-            $table->foreign('child_category')->references('id')->on('categories');
+            $table->foreign('category_parent')->references('id')->on('categories');
+            $table->foreign('category_child')->references('id')->on('categories');
         });
     }
 

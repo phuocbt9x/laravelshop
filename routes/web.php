@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/' , function(){
+    return view('admin.dashboard');
+})->name('hompage');
+Route::get('/create' , function(){
+    return view('admin.category.create');
+})->name('category.index');
+Route::get('/index' , function(){
+    return view('admin.category.index');
+})->name('category.index');
