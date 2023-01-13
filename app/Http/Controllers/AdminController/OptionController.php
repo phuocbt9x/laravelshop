@@ -23,7 +23,7 @@ class OptionController extends Controller
 
             return DataTables::of($options)
                 ->editColumn('name', function ($option) {
-                    return $option->name;
+                    return '<a href="' . route('value.index', $option->slug) . '">' . $option->name . '</a>';
                 })
                 ->editColumn('status', function ($option) {
                     return $option->status();

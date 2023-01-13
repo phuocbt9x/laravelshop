@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController\CategoryController;
 use App\Http\Controllers\AdminController\ManufactureController;
 use App\Http\Controllers\AdminController\OptionController;
+use App\Http\Controllers\AdminController\OptionValueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,5 +50,15 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/{optionModel}', 'edit')->name('edit');
         Route::patch('update/{optionModel}', 'update')->name('update');
         Route::delete('destroy/{optionModel}', 'destroy')->name('destroy');
+    });
+
+    //OptionValueController
+    Route::group(['controller' => OptionValueController::class, 'prefix' => '{option}/value', 'as' => 'value.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{optionValueModel}', 'edit')->name('edit');
+        Route::patch('update/{optionValueModel}', 'update')->name('update');
+        Route::delete('destroy/{optionValueModel}', 'destroy')->name('destroy');
     });
 });
