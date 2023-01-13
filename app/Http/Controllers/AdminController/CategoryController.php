@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest\CategoryRequest\StoreRequest;
+use App\Http\Requests\AdminRequest\CategoryRequest\UpdateRequest;
 use App\Models\AdminModel\CategoryModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -31,8 +32,8 @@ class CategoryController extends Controller
                     return $category->status();
                 })
                 ->editColumn('actions', function ($category) {
-                    $routeEdit = route('category.edit', $category->slug);
-                    $routeDestroy = "'" . route('category.destroy', $category->slug) . "'";
+                    $routeEdit = route('category.edit', $category->id);
+                    $routeDestroy = "'" . route('category.destroy', $category->id) . "'";
                     $buttonEdit = '<a href = "' . $routeEdit . '" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>';
                     $buttonDestroy = '<a href = "javascript:void(0)" class="ml-2 btn btn-sm btn-danger" onclick="deleteItem(' . $routeDestroy . ')"><i class="fas fa-trash"></i></a>';
                     return $buttonEdit . $buttonDestroy;
@@ -80,8 +81,9 @@ class CategoryController extends Controller
      */
     public function edit(CategoryModel $categoryModel)
     {
-        dd($categoryModel);
-        return view('admin.category.update');
+        //Còn lỗi bản thân danh mục không thể làm con của chính nó! FIX sau, khoai quá :((
+        $categories = CategoryModel::where('activated', 1)->whereNull('parent_id')->get();
+        return view('admin.category.update', compact('categories', 'categoryModel'));
     }
 
     /**
@@ -91,9 +93,16 @@ class CategoryController extends Controller
      * @param  \App\Models\AdminModel\CategoryModel  $categoryModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryModel $categoryModel)
+    public function update(UpdateRequest $request, CategoryModel $categoryModel)
     {
-        //
+        try {
+            if ($categoryModel->update($request->validated())) {
+                return redirect()->back()->withErrors(['success' => 'Cập nhật category thành công!']);
+            }
+            return redirect()->back()->withErrors(['error' => 'Cập nhật category thất bại!']);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors(['error' => 'Lỗi chưa xác định!']);
+        }
     }
 
     /**

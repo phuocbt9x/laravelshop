@@ -2,19 +2,15 @@
 
 namespace App\Models\AdminModel;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CategoryModel extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
     protected $table = 'categories';
     protected $fillable = ['name', 'slug', 'parent_id', 'activated'];
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public function parentCategory()
     {
