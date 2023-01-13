@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('category_id');
             $table->boolean('activated')->default(0);
             $table->timestamps();
-            $table->foreign('manufacturer_id')->references('id')->on('manufactureres');
+            $table->foreign('manufacturer_id')->references('id')->on('manufactures');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }

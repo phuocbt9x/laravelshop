@@ -33,8 +33,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
-        Route::get('edit/{categoryModel}', 'edit')->name('edit');
-        Route::patch('update/{categoryModel}', 'update')->name('update');
-        Route::delete('destroy/{categoryModel}', 'destroy')->name('destroy');
+        Route::get('edit/{manufactureModel}', 'edit')->name('edit');
+        Route::patch('update/{manufactureModel}', 'update')->name('update');
+        Route::delete('destroy/{manufactureModel}', 'destroy')->name('destroy');
     });
 });

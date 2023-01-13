@@ -30,7 +30,7 @@
                 "responsive": false,
                 "processing": true,
                 "serverSide": true,
-                "bDestroy": true,
+                //"bDestroy": true,
                 ajax: url,
                 columns: columns
             });

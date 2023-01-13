@@ -80,6 +80,7 @@ class CategoryController extends Controller
      */
     public function edit(CategoryModel $categoryModel)
     {
+        dd($categoryModel);
         return view('admin.category.update');
     }
 
@@ -104,7 +105,7 @@ class CategoryController extends Controller
     public function destroy(CategoryModel $categoryModel)
     {
         try {
-            dd($categoryModel->delete());
+            //dd($categoryModel->delete());
             if ($categoryModel->delete()) {
                 return 1;
             }

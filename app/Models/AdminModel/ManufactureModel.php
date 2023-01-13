@@ -12,4 +12,9 @@ class ManufactureModel extends Model
     protected $fillable = [
         'name','slug','logo','website','phone','activated'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

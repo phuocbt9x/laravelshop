@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\ManufactureRequest;
+namespace App\Http\Requests\AdminRequest\ManufactureRequest;
 
 use App\Rules\PhoneRule;
 use Illuminate\Foundation\Http\FormRequest;

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ManufactureRequest\StoreRequest;
+use App\Http\Requests\AdminRequest\ManufactureRequest\StoreRequest;
+use App\Http\Requests\AdminRequest\ManufactureRequest\UpdateRequest;
 use App\Models\AdminModel\ManufactureModel;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class ManufactureController extends Controller
 {
@@ -14,8 +16,44 @@ class ManufactureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax()){
+            $manufactures = ManufactureModel::get();
+            //dd($manufactures);
+            return DataTables::of($manufactures)
+            ->editColumn('id', function($manufacture){
+                //dd($manufacture->id);
+                return $manufacture->id;
+            })
+            ->editColumn('name', function($manufacture){
+                return $manufacture->name;
+            })
+            ->editColumn('slug', function($manufacture){
+                return $manufacture->slug;
+            })
+            ->editColumn('logo', function($manufacture){
+                $url= asset($manufacture->logo);
+                //dd($url);
+                return '<img src="'.$url.'" border="0" width="100" class="img" align="center" />';
+            })
+            ->editColumn('website', function($manufacture){
+                return $manufacture->website;
+            })
+            ->editColumn('phone', function($manufacture){
+                return $manufacture->phone;
+            })
+            ->editColumn('actions', function ($manufacture) {
+                $routeEdit = route('manufacturer.edit', $manufacture->slug);
+                $routeDestroy = "'" . route('manufacturer.destroy', $manufacture->slug) . "'";
+                $buttonEdit = '<a href = "' . $routeEdit . '" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>';
+                $buttonDestroy = '<a href = "javascript:void(0)" class="ml-2 btn btn-sm btn-danger" onclick="deleteItem(' . $routeDestroy . ')"><i class="fas fa-trash"></i></a>';
+                return $buttonEdit . $buttonDestroy;
+            })
+            ->rawColumns(['id', 'name', 'slug', 'logo', 'website', 'phone', 'actions'])
+            ->make(true);
+        }
+        
         return view('admin.manufacturer.index');
     }
 
@@ -47,9 +85,9 @@ class ManufactureController extends Controller
                 $newAvatar = $dirFolder . 'logo-' . $request->name . '-' . $nameAvatar;
                 $dataManufacturer['logo'] = $newAvatar;   
             }
-            
-            $manufacture =  ManufactureModel::create($dataManufacturer);
             //dd($manufacture);
+            $manufacture =  ManufactureModel::create($dataManufacturer);
+            
             if (!empty($manufacture)) {
                 
                 $avatar->move($dirFolder, $newAvatar);
@@ -80,7 +118,7 @@ class ManufactureController extends Controller
      */
     public function edit(ManufactureModel $manufactureModel)
     {
-        //
+        return view('admin.manufacturer.update', compact('manufactureModel'));
     }
 
     /**
@@ -90,9 +128,33 @@ class ManufactureController extends Controller
      * @param  \App\Models\AdminModel\ManufactureModel  $manufactureModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ManufactureModel $manufactureModel)
+    public function update(UpdateRequest $request, ManufactureModel $manufactureModel)
     {
-        //
+        try {
+            $dataManufacture = $request->all();
+            if ($request->hasFile('logo')) {
+                $logo = $request->logo;
+                $nameAvatar = $logo->getClientOriginalName();
+                $dirFolder = 'uploads/image/admin/manufacturer/';
+                $newAvatar = $dirFolder . 'logo-' . $request->name . '-' . $nameAvatar;
+                $dataManufacture['logo'] = $newAvatar;
+                @unlink($manufactureModel->logo);
+            }
+            else{
+                $dataManufacture['logo'] = $manufactureModel->logo;
+            }
+            $manufacture = $manufactureModel->update($dataManufacture);
+            if (!empty($manufacture)) {
+                if (!empty($logo)) {
+                    $logo->move($dirFolder, $newAvatar);
+                }
+                return redirect()->route('manufacturer.index')
+                    ->withErrors(['success' => 'Dữ liệu cập nhật thành công']);
+            }
+            
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 
     /**
@@ -103,6 +165,13 @@ class ManufactureController extends Controller
      */
     public function destroy(ManufactureModel $manufactureModel)
     {
-        //
+        try {
+            if ($manufactureModel->delete()) {
+                return 1;
+            }
+            return 0;
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 }
