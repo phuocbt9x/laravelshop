@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController\CategoryController;
+use App\Http\Controllers\AdminController\DiscountController;
 use App\Http\Controllers\AdminController\ManufactureController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,14 @@ Route::prefix('admin')->group(function () {
         Route::delete('destroy/{categoryModel}', 'destroy')->name('destroy');
     });
     Route::group(['controller' => ManufactureController::class, 'prefix' => 'manufacturer', 'as' => 'manufacturer.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{manufactureModel}', 'edit')->name('edit');
+        Route::patch('update/{manufactureModel}', 'update')->name('update');
+        Route::delete('destroy/{manufactureModel}', 'destroy')->name('destroy');
+    });
+    Route::group(['controller' => DiscountController::class, 'prefix' => 'discount', 'as' => 'discount.'], function () {
         Route::get('/', 'index')->name('index');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
