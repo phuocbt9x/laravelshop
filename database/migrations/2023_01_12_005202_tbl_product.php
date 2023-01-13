@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->longText('decrisption');
             $table->unsignedInteger('manufacturer_id');
-            $table->unsignedInteger('category_id');
+            $table->uuid('category_id');
             $table->boolean('activated')->default(0);
             $table->timestamps();
             $table->foreign('manufacturer_id')->references('id')->on('manufactures');

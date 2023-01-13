@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\AdminRequest\CategoryRequest;
+namespace App\Http\Requests\AdminRequest\OptionRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:options,name,' . request()->route()->optionModel->id,
             'slug' => 'sometimes',
-            'parent_id' => 'nullable|exists:categories,id',
             'activated' => 'required'
         ];
     }
@@ -38,13 +37,6 @@ class StoreRequest extends FormRequest
             $this->merge(['activated' => 0]);
         }
         $this->merge(['slug' => Str::slug($this->name)]);
-    }
-
-    public function attributes()
-    {
-        return [
-            'parent_id' => 'category'
-        ];
     }
 
     public function messages()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminRequest\CategoryRequest;
+namespace App\Http\Requests\AdminRequest\OptionValueRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
@@ -25,9 +25,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'value' => 'required|unique:option_values,value',
             'slug' => 'sometimes',
-            'parent_id' => 'nullable|exists:categories,id',
+            'option_id' => 'required|exists:options,id',
             'activated' => 'required'
         ];
     }
@@ -37,14 +37,7 @@ class StoreRequest extends FormRequest
         if ($this->missing('activated')) {
             $this->merge(['activated' => 0]);
         }
-        $this->merge(['slug' => Str::slug($this->name)]);
-    }
-
-    public function attributes()
-    {
-        return [
-            'parent_id' => 'category'
-        ];
+        $this->merge(['slug' => Str::slug($this->value)]);
     }
 
     public function messages()

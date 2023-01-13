@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Category</h1>
+                        <h1>Options</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Category</li>
+                            <li class="breadcrumb-item active">Options</li>
                         </ol>
                     </div>
                 </div>
@@ -28,46 +28,18 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Update Category</h3>
+                                <h3 class="card-title">Update Option</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{ route('category.update', $categoryModel->id) }}" method="POST"
+                            <form action="{{ route('option.update', $optionModel->slug) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="category">Category</label>
-                                        <select
-                                            class="form-control @error('parent_id')
-                                        is-invalid
-                                    @enderror"
-                                            id="category" name="parent_id">
-                                            <option value="">Choose a category</option>
-                                            @foreach ($categories as $category)
-                                                <option @selected($category->id == $categoryModel->parent_id) value="{{ $category->id }}">
-                                                    {{ ucfirst($category->name) }}
-                                                </option>
-                                                @if ($category->childrenCategories)
-                                                    @foreach ($category->childrenCategories as $children)
-                                                        @include('admin.category.sub_category', [
-                                                            'children' => $children,
-                                                            'level' => '|---',
-                                                            'categoryModel' => $categoryModel,
-                                                        ])
-                                                    @endforeach
-                                                @endif
-                                            @endforeach
-                                        </select>
-
-                                        @error('parent_id')
-                                            <span id="name-error" class="error invalid-feedback">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input value="{{ $categoryModel->name }}" type="text" id="name"
+                                        <input value="{{ $optionModel->name }}" type="text" id="name"
                                             placeholder="Name" name="name"
                                             class="form-control @error('name')
                                                 is-invalid
@@ -78,7 +50,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-switch">
-                                            <input @checked($categoryModel->activated) type="checkbox" class="custom-control-input"
+                                            <input @checked($optionModel->activated) type="checkbox" class="custom-control-input"
                                                 id="activated" name="activated" value="1">
                                             <label class="custom-control-label" for="activated">Active</label>
                                         </div>
