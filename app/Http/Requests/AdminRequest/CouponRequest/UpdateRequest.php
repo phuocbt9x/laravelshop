@@ -3,7 +3,7 @@
 namespace App\Http\Requests\AdminRequest\CouponRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Str;
 class UpdateRequest extends FormRequest
 {
     /**
@@ -29,10 +29,22 @@ class UpdateRequest extends FormRequest
             'type' => 'required',
             'stock' =>'nullable',
             'time_start' => 'required',
-            'time_end' => 'required',
+            'time_end' => 'required|after:time_start',
             'value' => 'required',
             'activated' => 'required'
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        if ($this->missing('activated')) {
+            $this->merge(['activated' => 0]);
+        }
+        $this->merge([
+            'code' => Str::slug($this->name),
+            'time_start' => ConvertStrDateTime($this->time_start, 'Y-m-d G:i'),
+            'time_end' => ConvertStrDateTime($this->time_end, 'Y-m-d G:i'),
+        ]);
     }
 
     public function messages()
@@ -40,7 +52,8 @@ class UpdateRequest extends FormRequest
         return [
             'required' => "Trường :attribute không được bỏ trống!",
             'unique' => "Dữ liệu của trường :attribute đã tồn tại!",
-            'exists' => "Dữ liệu của trường :attribute không nằm trong bảng!"
+            'exists' => "Dữ liệu của trường :attribute không nằm trong bảng!",
+            'after' => "Thời gian kết thúc phải sau thời gian bắt đầu"
         ];
     }
 }

@@ -23,6 +23,7 @@ class CouponModel extends Model
             return "<span class='badge badge-info'>Percentage</span>";
         }
     }
+ 
 
     public function value()
     {

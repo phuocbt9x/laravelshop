@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest\CouponRequest\StoreRequest;
 use App\Http\Requests\AdminRequest\CouponRequest\UpdateRequest;
 use App\Models\AdminModel\CouponModel;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
@@ -39,7 +41,7 @@ class CouponController extends Controller
                 return $coupon->stock;
             })
             ->editColumn('time_start', function($coupon){
-                return $coupon->time_start;
+                return ConvertDateTime($coupon->time_start);
             })
             ->editColumn('time_end', function($coupon){
                 return $coupon->time_end;
@@ -79,9 +81,8 @@ class CouponController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $code  = Hash::make($request->name);
-            $request['code'] = $code;
-            //dd($request->all());
+            //dd($request);
+           
             $coupon = CouponModel::create($request->all());
             if(!empty($coupon)){
                 return redirect()->route('coupon.index')
@@ -125,8 +126,6 @@ class CouponController extends Controller
     public function update(UpdateRequest $request, CouponModel $couponModel)
     {
         try {
-            $code  = Hash::make($request->name);
-            $request['code'] = $code;
             $coupon = $couponModel->update($request->all());
             if($coupon){
                 return redirect()->route('coupon.index')
