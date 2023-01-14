@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController\CategoryController;
+use App\Http\Controllers\AdminController\CounponController;
+use App\Http\Controllers\AdminController\CouponController;
 use App\Http\Controllers\AdminController\DiscountController;
 use App\Http\Controllers\AdminController\ManufactureController;
 use App\Http\Controllers\AdminController\OptionController;
@@ -42,13 +44,14 @@ Route::prefix('admin')->group(function () {
         Route::patch('update/{manufactureModel}', 'update')->name('update');
         Route::delete('destroy/{manufactureModel}', 'destroy')->name('destroy');
     });
+    //Discount
     Route::group(['controller' => DiscountController::class, 'prefix' => 'discount', 'as' => 'discount.'], function () {
         Route::get('/', 'index')->name('index');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
-        Route::get('edit/{manufactureModel}', 'edit')->name('edit');
-        Route::patch('update/{manufactureModel}', 'update')->name('update');
-        Route::delete('destroy/{manufactureModel}', 'destroy')->name('destroy');
+        Route::get('edit/{discountModel}', 'edit')->name('edit');
+        Route::patch('update/{discountModel}', 'update')->name('update');
+        Route::delete('destroy/{discountModel}', 'destroy')->name('destroy');
     });
     //OptionController
     Route::group(['controller' => OptionController::class, 'prefix' => 'option', 'as' => 'option.'], function () {
@@ -68,6 +71,16 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/{optionValueModel}', 'edit')->name('edit');
         Route::patch('update/{optionValueModel}', 'update')->name('update');
         Route::delete('destroy/{optionValueModel}', 'destroy')->name('destroy');
+
+    });
+    //Coupon
+    Route::group(['controller' => CouponController::class, 'prefix' => 'coupon', 'as' => 'coupon.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{couponModel}', 'edit')->name('edit');
+        Route::patch('update/{couponModel}', 'update')->name('update');
+        Route::delete('destroy/{couponModel}', 'destroy')->name('destroy');
 
     });
 });

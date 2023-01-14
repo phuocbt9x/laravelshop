@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\AdminRequest\DiscountRequest;
+namespace App\Http\Requests\AdminRequest\CouponRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
+
 class UpdateRequest extends FormRequest
 {
     /**
@@ -25,25 +25,22 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'value' => 'required',
+            'code' => 'sometimes',
             'type' => 'required',
-            'slug' => 'sometimes'
+            'stock' =>'nullable',
+            'time_start' => 'required',
+            'time_end' => 'required',
+            'value' => 'required',
+            'activated' => 'required'
         ];
-    }
-
-    public function prepareForValidation()
-    {
-        if($this->missing('activated')){
-            $this->merge(['activated' => 0]);
-        }
-        $this->merge(['slug'=> Str::slug($this->name)]);
     }
 
     public function messages()
     {
         return [
-            'required' => 'Trường này không được bỏ trống!',
+            'required' => "Trường :attribute không được bỏ trống!",
             'unique' => "Dữ liệu của trường :attribute đã tồn tại!",
+            'exists' => "Dữ liệu của trường :attribute không nằm trong bảng!"
         ];
     }
 }

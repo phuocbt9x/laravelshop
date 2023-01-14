@@ -24,6 +24,7 @@
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('assets/admin') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     @stack('css')
+    @stack('link')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/admin') }}/dist/css/adminlte.min.css">
 </head>
@@ -115,6 +116,7 @@
         </script>
     @enderror
     @stack('js')
+    @stack('script')
 </body>
 
 </html>

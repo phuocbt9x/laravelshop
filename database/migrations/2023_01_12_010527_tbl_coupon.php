@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->boolean('type')->default(0);
             $table->unsignedInteger('stock')->nullable();
-            $table->dateTime('time_start')->nullable();
-            $table->dateTime('time_end')->nullable();
+            $table->string('time_start')->nullable();
+            $table->string('time_end')->nullable();
             $table->unsignedInteger('value');
             $table->boolean('activated')->default(0);
             $table->timestamps();

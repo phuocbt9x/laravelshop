@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest\DiscountRequest\StoreRequest;
+use App\Http\Requests\AdminRequest\DiscountRequest\UpdateRequest;
 use App\Models\AdminModel\DiscountModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -37,7 +38,7 @@ class DiscountController extends Controller
             })
             ->addColumn('actions', function($discount){
                 $routeEdit = route('discount.edit' ,$discount->slug);
-                $routeDestroy = route('discount.destroy' ,$discount->slug);
+                $routeDestroy ="'" . route('discount.destroy' ,$discount->slug) . "'";
                 $btnEdit = '<a href ="' . $routeEdit . '" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>';
                 $buttonDestroy = '<a href = "javascript:void(0)" class="ml-2 btn btn-sm btn-danger" onclick="deleteItem(' . $routeDestroy . ')"><i class="fas fa-trash"></i></a>';
                 return $btnEdit . $buttonDestroy;
@@ -71,7 +72,7 @@ class DiscountController extends Controller
             $discount = DiscountModel::create($request->all());
             //dd($discount);
             if($discount){
-                return redirect()->route('discount.index')->withErrors(['success' => 'Thêm mới dữ liệu thành công']);;
+                return redirect()->route('discount.index')->withErrors(['success' => 'Thêm mới dữ liệu thành công']);
             }
         } catch (\Throwable $th) {
             dd($th->getMessage());
@@ -97,7 +98,7 @@ class DiscountController extends Controller
      */
     public function edit(DiscountModel $discountModel)
     {
-        //
+        return view('admin.discount.update', compact('discountModel'));
     }
 
     /**
@@ -107,9 +108,16 @@ class DiscountController extends Controller
      * @param  \App\Models\AdminModel\DiscountModel  $discountModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DiscountModel $discountModel)
+    public function update(UpdateRequest $request, DiscountModel $discountModel)
     {
-        //
+        try {
+            $discount = $discountModel->update($request->all());
+            if($discount){
+                return redirect()->route('discount.index')->withErrors(['success' => 'Sửa dữ liệu thành công']);;
+            }
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 
     /**
@@ -120,6 +128,14 @@ class DiscountController extends Controller
      */
     public function destroy(DiscountModel $discountModel)
     {
-        //
+        //dd($discountModel);
+        try {
+            if ($discountModel->delete()) {
+                return 1;
+            }
+            return 0;
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 }

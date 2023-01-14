@@ -38,6 +38,7 @@
     </script>
     <script>
         function deleteItem(url) {
+            console.log(url);
             var confirm = window.confirm(
                 "Do you really want to delete this data! Data cannot be restored! Do you want to continue?");
             if (confirm) {

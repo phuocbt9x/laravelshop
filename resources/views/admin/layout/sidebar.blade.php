@@ -93,7 +93,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="{{ route('coupon.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Coupon</p>
                             </a>
