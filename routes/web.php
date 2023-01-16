@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController\DiscountController;
 use App\Http\Controllers\AdminController\ManufactureController;
 use App\Http\Controllers\AdminController\OptionController;
 use App\Http\Controllers\AdminController\OptionValueController;
+use App\Http\Controllers\AdminController\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,6 +82,16 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/{couponModel}', 'edit')->name('edit');
         Route::patch('update/{couponModel}', 'update')->name('update');
         Route::delete('destroy/{couponModel}', 'destroy')->name('destroy');
+
+    });
+    //Product
+    Route::group(['controller' => ProductController::class, 'prefix' => 'product', 'as' => 'product.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{productModel}', 'edit')->name('edit');
+        Route::patch('update/{productModel}', 'update')->name('update');
+        Route::delete('destroy/{productModel}', 'destroy')->name('destroy');
 
     });
 });
