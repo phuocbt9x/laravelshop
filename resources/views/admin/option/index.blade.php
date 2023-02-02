@@ -38,6 +38,7 @@
                                             <th>Name</th>
                                             <th>Slug</th>
                                             <th>Status</th>
+                                            <th>Term</th>
                                             <th>Action(s)</th>
                                         </tr>
                                     </thead>
@@ -72,6 +73,10 @@
             {
                 data: 'status',
                 name: 'status'
+            },
+            {
+                data: 'terms',
+                name: 'terms'
             },
             {
                 data: 'actions',

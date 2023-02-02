@@ -28,6 +28,9 @@ class OptionController extends Controller
                 ->editColumn('status', function ($option) {
                     return $option->status();
                 })
+                ->editColumn('terms', function ($option) {
+                    return $option->getOptionValue();
+                })
                 ->editColumn('actions', function ($option) {
                     $routeEdit = route('option.edit', $option->slug);
                     $routeDestroy = "'" . route('option.destroy', $option->slug) . "'";
@@ -35,7 +38,7 @@ class OptionController extends Controller
                     $buttonDestroy = '<a href = "javascript:void(0)" class="ml-2 btn btn-sm btn-danger" onclick="deleteItem(' . $routeDestroy . ')"><i class="fas fa-trash"></i></a>';
                     return $buttonEdit . $buttonDestroy;
                 })
-                ->rawColumns(['name', 'status', 'actions'])
+                ->rawColumns(['name', 'status', 'term', 'actions'])
                 ->make(true);
         }
         return view('admin.option.index');

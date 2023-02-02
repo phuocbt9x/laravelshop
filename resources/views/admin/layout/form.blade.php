@@ -124,7 +124,22 @@
             $("input[data-bootstrap-switch]").each(function() {
                 $(this).bootstrapSwitch('state', $(this).prop('checked'));
             })
-
+            
         })
+    </script>
+    
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('blah');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            setTimeout(function() {
+                $('#blah').html('<img src="imagse/load.gif">');
+            }, 2000);
+
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+        
     </script>
 @endpush

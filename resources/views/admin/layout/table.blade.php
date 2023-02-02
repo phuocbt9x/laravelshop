@@ -18,6 +18,7 @@
     <script src="{{ asset('assets/admin') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('assets/admin') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
+        
         function renderTable(url, columns) {
             $('#dataTable').DataTable({
                 "paging": true,
@@ -32,8 +33,39 @@
                 "serverSide": true,
                 //"bDestroy": true,
                 ajax: url,
-                columns: columns
+                columns: columns,
+                "order": [
+                    [1, 'asc']
+                ]
             });
+            // function format(data) {
+            //     console.log(data);
+            //     return (
+            //         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            //             '<tr>' +
+            //                 '<td>Full name:</td>' +
+            //                     '<td>' +
+            //                         data.name +
+            //                     '</td>' +
+            //                 '</tr>' +
+            //         '</table>'
+            //     );
+            // };
+            // $('#dataTable tbody').on('click', 'td.details-control', function () {
+            //     var tr = $(this).closest('tr');
+            //     var tdi = tr.find("i.fa");
+            //     console.log(tr);
+            //     var row = table.row(tr);
+            //     if (row.child.isShown()) {
+            //         // This row is already open - close it.
+            //         row.child.hide();
+            //         tr.removeClass('shown');
+            //     } else {
+            //         // Open row.
+            //         row.child('foo').show();
+            //         tr.addClass('shown');
+            //     }
+            // }); 
         };
     </script>
     <script>
