@@ -49,8 +49,8 @@
                                 <table id="dataTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>
-                                            </th>
+                                            {{-- <th>
+                                            </th> --}}
                                             <th><i class="far fa-regular fa-image"></i></th>
                                             <th>Name</th>
                                             <th>Slug</th>
@@ -84,15 +84,15 @@
         
         
         var columns = [
-            {
-                "className": 'details-control',
-                "orderable": false,
-                "data": null,
-                "defaultContent": '',
-                'render': function(){
-                    return '<i class="far fa-plus-square" aria-hidden="true"></i>'
-                }
-            },
+            // {
+            //     "className": 'details-control',
+            //     "orderable": false,
+            //     "data": null,
+            //     "defaultContent": '',
+            //     'render': function(){
+            //         return '<i class="far fa-plus-square" aria-hidden="true"></i>'
+            //     }
+            // },
             {
                 data: 'thumbnail',
                 name: 'thumbnail'
@@ -126,66 +126,67 @@
                 name: 'actions'
             }
         ];
-        $('#dataTable').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "orderable": false,
-            "info": true,
-            "autoWidth": false,
-            "responsive": false,
-            "processing": true,
-            "serverSide": true,
-            //"bDestroy": true,
-            ajax: "{{route('product.index')}}",
-            columns: columns,
-            "order": [
-                [1, 'asc']
-            ],
-        });
+        renderTable("{!! route('product.index') !!}", columns);
+        // $('#dataTable').DataTable({
+        //     "paging": true,
+        //     "lengthChange": true,
+        //     "searching": true,
+        //     "ordering": true,
+        //     "orderable": false,
+        //     "info": true,
+        //     "autoWidth": false,
+        //     "responsive": false,
+        //     "processing": true,
+        //     "serverSide": true,
+        //     //"bDestroy": true,
+        //     ajax: "{{route('product.index')}}",
+        //     columns: columns,
+        //     "order": [
+        //         [1, 'asc']
+        //     ],
+        // });
         
-        $('#dataTable tbody').on('click', 'td.details-control', function () {
-            var tr = $(this).closest('tr');
-            var tdi = tr.find("i.fa");
-            console.log(tr);
-            var row = table.row(tr);
-            if (row.child.isShown()) {
-                // This row is already open - close it.
-                row.child.hide();
-                tr.removeClass('shown');
-            } else {
-                // Open row.
-                row.child('foo').show();
-                tr.addClass('shown');
-            }
-        }); 
-        function format(response) {
-            console.log(response);
-            return (
-                '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                    '<tr>' +
-                        '<td>Full name:</td>' +
-                            '<td>' +
-                                d.name +
-                            '</td>' +
-                        '</tr>' +
-                '</table>'
-            );
-            console.log(1);
-        };
-        $(document).ready(function () {
-            $.ajax({
-                type: "get",
-                url: "{{ route('product.index') }}",
-                data: null,
-                dataType: "json",
-                success: function (response) {
-                    //console.log(response.data[0].name);
+        // $('#dataTable tbody').on('click', 'td.details-control', function () {
+        //     var tr = $(this).closest('tr');
+        //     var tdi = tr.find("i.fa");
+        //     console.log(tr);
+        //     var row = table.row(tr);
+        //     if (row.child.isShown()) {
+        //         // This row is already open - close it.
+        //         row.child.hide();
+        //         tr.removeClass('shown');
+        //     } else {
+        //         // Open row.
+        //         row.child('foo').show();
+        //         tr.addClass('shown');
+        //     }
+        // }); 
+        // function format(response) {
+        //     console.log(response);
+        //     return (
+        //         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+        //             '<tr>' +
+        //                 '<td>Full name:</td>' +
+        //                     '<td>' +
+        //                         d.name +
+        //                     '</td>' +
+        //                 '</tr>' +
+        //         '</table>'
+        //     );
+        //     console.log(1);
+        // };
+        // $(document).ready(function () {
+        //     $.ajax({
+        //         type: "get",
+        //         url: "{{ route('product.index') }}",
+        //         data: null,
+        //         dataType: "json",
+        //         success: function (response) {
+        //             //console.log(response.data[0].name);
                     
-                }
-            });    
-        });
+        //         }
+        //     });    
+        // });
         //renderTable("{!! route('product.index') !!}", columns);
 
         // function format(data) {

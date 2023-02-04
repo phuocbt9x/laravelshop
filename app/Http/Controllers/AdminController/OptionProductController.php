@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdminModel\OptioProductModel;
+use App\Models\AdminModel\OptionProductModel;
 use Illuminate\Http\Request;
 
 class OptionProductController extends Controller
@@ -42,10 +42,10 @@ class OptionProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AdminModel\OptioProductModel  $optioProductModel
+     * @param  \App\Models\AdminModel\OptionProductModel  $optionProductModel
      * @return \Illuminate\Http\Response
      */
-    public function show(OptioProductModel $optioProductModel)
+    public function show(OptionProductModel $optionProductModel)
     {
         //
     }
@@ -53,10 +53,10 @@ class OptionProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AdminModel\OptioProductModel  $optioProductModel
+     * @param  \App\Models\AdminModel\OptionProductModel  $optionProductModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(OptioProductModel $optioProductModel)
+    public function edit(OptionProductModel $optionProductModel)
     {
         //
     }
@@ -65,10 +65,10 @@ class OptionProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AdminModel\OptioProductModel  $optioProductModel
+     * @param  \App\Models\AdminModel\OptionProductModel  $optionProductModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OptioProductModel $optioProductModel)
+    public function update(Request $request, OptionProductModel $optionProductModel)
     {
         //
     }
@@ -76,10 +76,10 @@ class OptionProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AdminModel\OptioProductModel  $optioProductModel
+     * @param  \App\Models\AdminModel\OptionProductModel  $optionProductModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OptioProductModel $optioProductModel)
+    public function destroy(OptionProductModel $optionProductModel)
     {
         //
     }

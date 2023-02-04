@@ -33,28 +33,41 @@
                                         <div class="form-group row">
                                             <label for="name" class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="name" placeholder="Name"
-                                                    name="name" fdprocessedid="nvd9fh">
+                                                <input type="text" class="form-control @error('name')  
+                                                is-invalid @enderror"
+                                                id="name" placeholder="Name"
+                                                name="name" fdprocessedid="nvd9fh">
+                                                @error('name')
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="price" class="col-sm-2 col-form-label">Price</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control" id="price" min="0"
+                                                <input type="number" class="form-control @error('price')  
+                                                is-invalid @enderror" id="price" min="0"
                                                     name="price" placeholder="Price" fdprocessedid="nvd9fh">
+                                                @error('price')
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control" id="quantity" name="quantity"
+                                                <input type="number" class="form-control @error('quantity')  
+                                                is-invalid @enderror" id="quantity" name="quantity"
                                                     placeholder="Quantity" fdprocessedid="c5qs9">
+                                                @error('quantity')
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="quantity" class="col-sm-2 col-form-label">Manufacturer</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" fdprocessedid="4b7qpb" name="manufacture_id"
+                                                <select class="form-control" fdprocessedid="4b7qpb" name="manufacturer_id"
                                                     id="manufacture_id">
                                                     <option>Choose manufacturer</option>
                                                     @foreach ($manufactures as $manufacture)
@@ -63,6 +76,9 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @error('manufacture_id')
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -77,6 +93,9 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @error('category_id')
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -91,14 +110,22 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>Discription</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter about product description" name="discription"></textarea>
+                                            <textarea class="form-control @error('decrisption')  
+                                            is-invalid @enderror" rows="3" placeholder="Enter about product description" name="decrisption"></textarea>
+                                            @error('decrisption')
+                                                <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label>Thambnail</label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile"
+                                                <input type="file" class="custom-file-input @error('thumbnail')  
+                                                is-invalid @enderror" id="customFile"
                                                     name="thumbnail" onchange="loadFile(event)">
                                                 <label class="custom-file-label" for="customFile">Choose file</label>
+                                                @error('thumbnail')
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                             <div class="d-flex justify-content-center mw-100" id="preview_logo">
                                                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
@@ -147,6 +174,9 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                    @error('size')
+                                                        <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group" data-select2-id="94">
@@ -161,12 +191,33 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @error('colour')
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group h">
                                                 
                                             </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </section>
+                </div>
+                <div class="card-default">
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="activated" name="activated" value="1">
+                                            <label class="custom-control-label" for="activated">Active</label>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +227,7 @@
                 </div>
                 <div class="card-default">
                     <div class="card-footer d-flex justify-content-center">
-                        <button class="btn btn-success w-10" fdprocessedid="xfio8" style="width: 150px;height: 50px;"
+                        <button class="btn btn-success w-10" fdprocessedid="xfio8" style="width: 150px;height: 50px;" type="submit"
                             id="submit"><span class="h5">Next</span></button>
                     </div>
                 </div>
@@ -215,7 +266,7 @@
                         })
                         $('.h').html((arr));
                         if (window.File && window.FileList && window.FileReader) {
-                            $(".files").on("change", function(e) {
+                            $(".images").on("change", function(e) {
                                 var clickedButton = this;
                             
                                 var files = e.target.files,

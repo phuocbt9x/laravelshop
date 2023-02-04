@@ -75,7 +75,7 @@ class ManufactureController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        //dd($request->hasFile('logo'));
+       
         try {
             $dataManufacturer = $request->all();
             if($request->hasFile('logo')) {
@@ -85,6 +85,7 @@ class ManufactureController extends Controller
                 $newAvatar = $dirFolder . 'logo-' . $request->name . '-' . $nameAvatar;
                 $dataManufacturer['logo'] = $newAvatar;   
             }
+             dd($dataManufacturer);
             //dd($manufacture);
             $manufacture =  ManufactureModel::create($dataManufacturer);
             
