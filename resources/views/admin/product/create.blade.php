@@ -55,10 +55,10 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-10" id="quantity-div">
                                                 <input type="number" class="form-control @error('quantity')  
                                                 is-invalid @enderror" id="quantity" name="quantity"
-                                                    placeholder="Quantity" fdprocessedid="c5qs9">
+                                                    placeholder="Quantity" fdprocessedid="c5qs9" >
                                                 @error('quantity')
                                                     <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
                                                 @enderror
@@ -161,7 +161,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-6" >
-                                            <div class="form-group" data-select2-id="48">
+                                            {{-- <div class="form-group" data-select2-id="48">
                                                 <label>Size</label>
                                                 <div class="select2-blue" data-select2-id="47">
                                                     <select class="select2 select2-hidden-accessible" multiple=""
@@ -194,7 +194,32 @@
                                                 @error('colour')
                                                     <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
+                                            @foreach ($test as $key => $option)
+                                                <div class="form-group" data-select2-id="48">
+                                                    <label>{{$key}}</label>
+                                                    <div class="select2-blue" >
+                                                        <select class="select2 select2-hidden-accessible" multiple=""
+                                                            name="{{$key.'[]'}}" data-placeholder="Select a State" 
+                                                            data-dropdown-css-class="select2-blue" style="width: 100%;"
+                                                            tabindex="-1" aria-hidden="true" id="{{$key}}">
+                                                            @foreach ($option as $item)
+                                                            
+                                                                <option value="{{ $item->id }}">
+                                                                    {{ $item->value }}
+                                                                </option>
+                                                            
+                                                                @endforeach
+                                                        </select>
+                                                        @error('size')
+                                                            <span id="exampleInputEmail1-error" class="error invalid-feedback mb-0" style="font-size: 15px">{{ $message }}</span>
+                                                        @enderror
+                                                       
+
+                                                    </div>
+                                                </div> 
+                                            @endforeach
+                                            <button type="submit" class="btn btn-secondary" fdprocessedid="l21zjs" id="arrColour">Go</button>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group h">
@@ -238,22 +263,63 @@
 @push('js')
     <script>
         $('.product-option').on('click', function() {
+            var option = $('.product-option');
             $('#doing').slideToggle();
+            if($(option).is(':checked')){
+                $(option).parents().find("#quantity-div #quantity").attr('readonly', true);
+            }
+            else{
+                $(option).parents().find("#quantity-div #quantity").attr('readonly', false);
+            }
         })
         $('#form').submit(function() {
             $('.product-option').prop('checked', false);
         });
-        $('#arrColour').change(function() {
-            if ($('#arrColour :selected').length > 0) {
-
+        $('#arrColour').on('click',function(event) {
+            // event.preventDefault();
+            // var btn = $('#arrColour');
+            // //console.log(1);
+            // var selectednumbers = [];
+            
+            // $(btn).siblings().find('select :selected').each(function(i,selected){
+            //     selectednumbers[i] = $(selected).val();
+            // });
+            // $(btn).siblings().find('select').each(function(i,selecte){
+            //     selectednumbers[i]= [$(selecte).attr("id")];
+            // })
+            // var arr = [];
+            // selectednumbers.forEach(element => {
+            //      $(btn).siblings().find('select :selected').each(function(a,selected){
+            //         arr[element]= [$(selected).val()];
+            //     })
+            // });
+            //  selectednumbers.each(function(i,item){
+               
+            //  })
+           
+            //  console.log($(btn).siblings().find('select :selected').serializeArray());
+            event.preventDefault();
+            var btn = $('#arrColour');
+            
+            // var selectednumbers = [];
+            // $(btn).siblings().find('select').each(function(i,select){
+            //     selectednumbers[i] =  $(select).val();
+                // $(select).find('select :selected').each(function(a,selected){
+                //     arrayProduct[a] = [
+                //         {nameProduct: $(select).attr("id"),valueProduct: $(selected).val()}
+                //     ]
+                // });
+            //})
+            if ($(btn).siblings().find('select :selected').length != '') {
                 var selectednumbers = [];
-                $('#arrColour :selected').each(function(i, selected) {
-                    selectednumbers[i] = $(selected).val();
-                });
+                var selectednumber = [];
+                $(btn).siblings().find('select').each(function(i,select){
+                    selectednumbers[i] =  $(select).val();
+                })
                 $.ajax({
                     url: '{!! route('product.api') !!}',
                     data: {
-                        colour: JSON.stringify(selectednumbers)
+                        option: JSON.stringify(selectednumbers)
                     },
                     method: 'post',
                     success: function(data) {
@@ -264,7 +330,9 @@
                         $.each(JSON.parse(data), function(i, item) {
                             arr[i] = [item];
                         })
+                        //show div productSku
                         $('.h').html((arr));
+                        //thumbnail
                         if (window.File && window.FileList && window.FileReader) {
                             $(".images").on("change", function(e) {
                                 var clickedButton = this;
@@ -291,11 +359,82 @@
                         } else {
                             alert("Your browser doesn't support to File API")
                         }
+                        //quantity
+                        var a = [];
+                        $('input[name^="quantitySku"]').change(function(event){
+                            event.preventDefault();
+                            var quantity = $('input[name^="quantitySku"]');
+                            if ($(quantity).length != '') {
+                                console.log(30);
+                                var arrQuantity = [];
+                                console.log( $(quantity).val());
+                                var el = document.getElementById('quantity_sku').value;
+                                $("input[name^='quantitySku']").each(function(i,select) {
+                                    arrQuantity[i] = ($(select).val());
+                                });
+                                console.log(JSON.stringify(arrQuantity));
+                                $.ajax({
+                                    url: '{!! route('product.apiQuantity') !!}',
+                                    data: {
+                                        quantity: JSON.stringify(arrQuantity)
+                                    },
+                                    method: 'post',
+                                    success: function (response) {
+                                        $('#quantity').val(response);
+                                    }
+                                });
+                            }
+                        })
                     }
                 });
             } else {
                 $('.h').hide();
             }
-        })
+        });
+        
+            
+        
+        
+        // $('#arrColour').on('click',function(event) {
+        //     event.preventDefault();
+        //     var btn = $('#arrColour');
+        //     console.log(1);
+        //     var selectednumbers = [];
+        //     const  arrayProduct = [];
+        //     $(btn).siblings().find('select').each(function(i,select){
+        //         console.log($(select).val());
+        //         $(select).find('select :selected').each(function(a,selected){
+        //             arrayProduct[a] = [
+        //                 {nameProduct: $(select).attr("id"),valueProduct: $(selected).val()}
+        //             ]
+        //         });
+        //     })
+        //     //const  arrayProduct = $(btn).siblings().find('select').val();
+        //     console.log(arrayProduct);
+        //     const groupBy = key => array =>
+        //         array.reduce((objectsByKeyValue, obj) => {
+        //             const value = obj[key];
+        //             objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+        //             return objectsByKeyValue;
+        //         });
+        //         const groupByBrand = groupBy('nameProduct');
+            
+        //     // console.log(JSON.stringify(
+        //     //     groupByBrand(arrayProduct)
+        //     // ));
+
+
+        //     // $(btn).siblings().find('select').each(function(i,selecte){
+        //     //     selectednumbers[i]= $(selecte).attr("id");
+        //     // })
+        //     // var arr = [];
+        //     // selectednumbers.forEach(element => {
+        //     //     //console.log(element);
+        //     //     var bien = '#' + element + ':selected';
+        //     //     console.log(bien);
+        //     //     arr[element] = $(element).val();
+        //     // });
+        //     // console.log($('#Size :selected').val());  
+        // })
     </script>
 @endpush

@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
             'name' => 'required|min:5|max:200',
             'slug' => 'sometimes',
             'price' => 'required|numeric',
-            'quantity' => 'required|numeric|min:0',
+            'quantity' => 'sometimes|numeric|min:0',
             'manufacturer_id' => 'required',
             'category_id' => 'required',
             'decrisption' => 'required',

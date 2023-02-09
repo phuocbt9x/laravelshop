@@ -85,7 +85,7 @@ class ManufactureController extends Controller
                 $newAvatar = $dirFolder . 'logo-' . $request->name . '-' . $nameAvatar;
                 $dataManufacturer['logo'] = $newAvatar;   
             }
-             dd($dataManufacturer);
+            //dd($dataManufacturer);
             //dd($manufacture);
             $manufacture =  ManufactureModel::create($dataManufacturer);
             

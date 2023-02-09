@@ -91,6 +91,7 @@ Route::prefix('admin')->group(function () {
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::post('api', 'api')->name('api');
+        Route::post('apiQuantity', 'apiQuantity')->name('apiQuantity');
         Route::get('edit/{productModel}', 'edit')->name('edit');
         Route::patch('update/{productModel}', 'update')->name('update');
         Route::delete('destroy/{productModel}', 'destroy')->name('destroy');
