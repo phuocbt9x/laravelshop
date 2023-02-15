@@ -13,6 +13,11 @@ class ProductModel extends Model
         'name', 'slug', 'price', 'thumbnail', 'quantity', 'decrisption', 'manufacturer_id', 'category_id', 'activated'
     ];
     
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+        
     public function manufacturer()
     {
         return $this->hasOne(ManufactureModel::class,'id' , 'manufacturer_id');
@@ -27,10 +32,6 @@ class ProductModel extends Model
         return $this->hasOne(CategoryModel::class,'id' , 'category_id');
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
     
     public function Price()
     {
